@@ -81,7 +81,7 @@ int main(int argc, const char **argv)
             truthy = true;
         }
     }
-    
+    // Only running code if input is valid:
     if (truthy == false){
     // Build Model.
     RouteModel model{osm_data};
