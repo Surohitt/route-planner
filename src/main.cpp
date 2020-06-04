@@ -72,11 +72,22 @@ int main(int argc, const char **argv)
     cout << "Enter the ending y coordinate: " << "\n";
     cin >> end_y;
 
+    std::vector<float> coords = {start_x, start_y, end_x, end_y};
+    // Input Validation:
+    bool truthy = false;
+    for (float coord:coords){
+        if (coord > 100 || coord < 0){
+            cout << "Coordinate: " << coord <<  " is out of bounds of [0,100]. Try again." << "\n";    
+            truthy = true;
+        }
+    }
+    
+    if (truthy == false){
     // Build Model.
     RouteModel model{osm_data};
 
     // Create RoutePlanner object and perform A* search.
-    RoutePlanner route_planner{model, 10, 10, 90, 90};
+    RoutePlanner route_planner{model, start_x, start_y, end_x, end_y};
     route_planner.AStarSearch();
 
     std::cout << "Distance: " << route_planner.GetDistance() << " meters. \n";
@@ -92,4 +103,6 @@ int main(int argc, const char **argv)
         render.Display(surface);
     });
     display.begin_show();
+    }
 }
+
